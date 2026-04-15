@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slam Book 📖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper: #ffffff; 
+      --accent1: #0369a1; 
+      --accent2: #0ea5e9; 
+      --accent3: #075985; 
+      --line: #bae6fd;
+      --blank-color: #1e3a8a; 
+      --bg-main: #e0f2fe;
+      --heading-color: #002366;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-main); 
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px;
+    }
+
+    .notebook {
+      width: 100%;
+      max-width: 720px;
+      background: var(--paper);
+      border-radius: 8px 24px 24px 8px;
+      box-shadow: -10px 0 0 var(--accent3), -18px 0 0 rgba(0,0,0,0.1), 0 25px 50px -12px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .spiral {
+      position: absolute;
+      left: -8px; top: 0; bottom: 0; width: 32px;
+      display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;
+      z-index: 10;
+    }
+    .hole {
+      width: 22px; height: 22px; background: var(--line);
+      border-radius: 50%; border: 4px solid var(--accent3);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .notebook-inner {
+      padding: 60px 40px 60px 60px;
+      background-image: repeating-linear-gradient(transparent, transparent 31px, var(--line) 31px, var(--line) 32px);
+      background-position: 0 58px;
+    }
+
+    .header { text-align: center; margin-bottom: 40px; }
+    .header .top-title { font-family: 'Caveat', cursive; font-size: 28px; color: var(--accent3); margin-bottom: -5px; }
+    .header h1 { font-family: 'Caveat', cursive; font-size: 58px; color: var(--heading-color); margin: 0; }
+    .header .sub-header { color: var(--accent3); font-family: 'Caveat'; font-size: 24px; margin-top: 5px; }
+
+    .section-label {
+      font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700;
+      color: var(--accent1); margin: 35px 0 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--accent1), transparent); }
+
+    .field { margin-bottom: 22px; }
+    label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+    input, textarea {
+      width: 100%; background: transparent; 
+      border: none; border-bottom: 2.5px solid var(--blank-color); 
+      padding: 8px 4px; font-family: 'Caveat', cursive; font-size: 22px;
+      color: var(--blank-color); outline: none;
+    }
+
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .mood-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px;
+      border: 2px dashed transparent;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .mood-item input { display: none; }
+    .mood-emoji { font-size: 40px; }
+    .mood-label { font-family: 'Caveat', cursive; font-size: 20px; color: var(--blank-color); margin-top: 5px; }
+
+    .mood-item input:checked + .mood-emoji-box {
+      background: rgba(0,0,0,0.05);
+      border-radius: 15px;
+      padding: 5px;
+    }
+    
+    .mood-item input:checked ~ .mood-label {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .submit-wrap { text-align: center; margin-top: 50px; }
+    button {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: white; border: none; padding: 16px 60px; border-radius: 50px;
+      font-family: 'Caveat', cursive; font-size: 28px; cursor: pointer;
+    }
+
+    .footer-note {
+      margin-top: 40px; text-align: center;
+      color: var(--accent3); font-family: 'Caveat', cursive; font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+<div class="notebook">
+  <div class="spiral">
+    <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+    <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+    <div class="hole"></div><div class="hole"></div><div class="hole"></div>
+  </div>
+  <div class="notebook-inner">
+    <div class="header">
+      <p class="top-title">🫂 Friendship Memories 🫂</p>
+      <h1>✨ Slam Book 📖</h1>
+      <p class="sub-header">📝Fill it up —🎤 tell me everything!🔊</p>
+    </div>
+   <form id="slamForm" action="https://formspree.io/f/xojyvqrk" method="POST">
+      <div class="section-label">👤 The Identity 🆔</div>
+      <div class="field"><label>Full Name: 🖋️</label><input type="text" name="name" required></div>
+      <div class="field"><label>Nickname / Alias: 😎</label><input type="text" name="nick"></div>
+      <div class="field"><label>Date of Birth: 🎈</label><input type="date" name="dob"></div>
+      <div class="field"><label>Email: 📧</label><input type="email" name="email"></div>
+      <div class="field"><label>Crush Name: ❤️</label><input type="text" name="crush"></div>
+      
+
+      <div class="section-label">🌟 Vibe & Vision 👁 🌈</div>
+      <div class="field"><label>Your Vibe / Personality : 💭</label><input type="text" name="vibe"></div>
+      <div class="field"><label>Your Life Motto: ✨ 📜</label><input type="text" name="motto"></div>
+
+      <div class="section-label">🤝 The Inner Circle 🫂</div>
+      <div class="field"><label>5 Best Friends: 🤝 💎</label><textarea name="best_friends" rows="2"></textarea></div>
+      <div class="field"><label>What do you love most about us? 💞</label><textarea name="love_most" rows="2"></textarea></div>
+
+      <div class="section-label">🎨 Passions & Play ⚡</div>
+      <div class="field"><label>Hobbies: 🎨 🎸</label><input type="text" name="hobbies"></div>
+      <div class="field"><label>Favorite Game: 🎮 🏆</label><input type="text" name="fav_game"></div>
+
+      <div class="section-label">🔝 The Top Tier Favorites ❤</div>
+      <div class="field"><label>Favorite Food: 🍕</label><input type="text" name="fav_food"></div>
+      <div class="field"><label>Favorite Movie: 🎬</label><input type="text" name="fav_movie"></div>
+      <div class="field"><label>Favorite Song: 🎵</label><input type="text" name="fav_song"></div>
+      <div class="field"><label>Favorite Color: 🎨</label><input type="text" name="color"></div>
+      <div class="field"><label>Favorite Teacher: 👩‍🏫</label><input type="text" name="teacher"></div>
+      <div class="field"><label>Favorite Memory with Me: 📸</label><textarea name="mem" rows="2"></textarea></div>
+      <div class="field"><label>Favorite Person you have met: 🥇</label><input type="text" name="person"></div>
+      <div class="field"><label>Favorite Celebrity: 🌟</label><input type="text" name="celeb"></div>
+      <div class="field"><label>A song that reminds you of us & why? 🎼</label><textarea name="remind_song" rows="2"></textarea></div>
+
+      <div class="section-label">🌍 Exploration 🌍</div>
+      <div class="field"><label>Dream Travel Destination: 🌍</label><input type="text" name="dream_dest"></div>
+
+      <div class="section-label">🎭 Under the Surface 🌊</div>
+      <div class="grid">
+        <div class="field"><label>Hidden Talent: 🎤</label><input type="text" name="hidden_talent"></div>
+        <div class="field"><label>Biggest Fear: 😨</label><input type="text" name="fear"></div>
+      </div>
+      <div class="field"><label>Worst Habit: 👎</label><input type="text" name="worst_habit"></div>
+
+      <div class="section-label">💌 The Future & Final Words 🔜</div>
+      <div class="field"><label>Dream Goal: 🌟 🚀</label><input type="text" name="goal"></div>
+      <div class="field"><label>Where we'll be in 10 years: 🚀 🏠</label><input type="text" name="future"></div>
+      <div class="field"><label>Current Mood: 🎐</label>
+        <div class="mood-grid">
+            <label class="mood-item"><input type="radio" name="mood" value="Happy"><span class="mood-emoji-box"><span class="mood-emoji">😀</span></span><span class="mood-label">Happy</span></label>
+            <label class="mood-item"><input type="radio" name="mood" value="Nostalgic"><span class="mood-emoji-box"><span class="mood-emoji">🥺</span></span><span class="mood-label">Nostalgic</span></label>
+            <label class="mood-item"><input type="radio" name="mood" value="Grateful"><span class="mood-emoji-box"><span class="mood-emoji">🥰</span></span><span class="mood-label">Grateful</span></label>
+            <label class="mood-item"><input type="radio" name="mood" value="Excited"><span class="mood-emoji-box"><span class="mood-emoji">🤩</span></span><span class="mood-label">Excited</span></label>
+            <label class="mood-item"><input type="radio" name="mood" value="Bittersweet"><span class="mood-emoji-box"><span class="mood-emoji">😌</span></span><span class="mood-label">Bittersweet</span></label>
+            <label class="mood-item"><input type="radio" name="mood" value="Chaotic"><span class="mood-emoji-box"><span class="mood-emoji">🤪</span></span><span class="mood-label">Chaotic</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Message for Me: 💌 🖋️</label><textarea name="final_message" rows="3"></textarea></div>
+      <div class="submit-wrap"><button type="submit">Send it in 💌</button></div>
+    </form>
+    
+    
+    <div class="footer-note">Made with ❤ for the best person ever</div>
+  </div>
+</div>
+
+<!-- Success state -->
+<div class="success-msg" id="successMsg" style="display:none;">
+  <div class="big">🎉</div>
+  <p>📃Your page has been added to my Slam Book📖!</p>
+  <small>🤝Thanks for sharing your memories 💛</small>
+</div>
+
+<style>
+  .success-msg{
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 18px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 9999;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .success-msg .big{
+    font-size: 40px;
+  }
+
+  @keyframes fadeIn{
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('slamForm');
+  const success = document.getElementById('successMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fields = form.querySelectorAll('input, textarea');
+    let isValid = true;
+
+    fields.forEach(field => {
+      if (field.classList.contains('optional')) return;
+      if (field.type === 'radio') return;
+
+      if (!field.value.trim()) {
+        isValid = false;
+        field.style.borderBottom = '2.5px solid red';
+      } else {
+        field.style.borderBottom = '2.5px solid #1e3a8a';
+      }
+    });
+
+    const moodSelected = form.querySelector('input[name="mood"]:checked');
+    if (!moodSelected) {
+      isValid = false;
+      alert('⚠️ Please select your mood!');
+    }
+
+    if (!isValid) {
+      alert('⚠️ Please fill all required fields!');
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+
+    btn.textContent = 'Sending... 💌';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.reset();
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        throw new Error('Form submission failed');
+      }
+
+    } catch (error) {
+      btn.textContent = 'Try again 😅';
+      btn.disabled = false;
+      alert('⚠️ Failed to send. Check Formspree ID or internet.');
+    }
+
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 3000);
+  });
+</script>
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Get all inputs & textareas
+    const fields = form.querySelectorAll('input, textarea');
+    let isValid = true;
+    
+    fields.forEach(field => {
+      // Skip optional fields
+      if (field.classList.contains('optional')) return;
+      
+      // Skip radio buttons (handle separately)
+      if (field.type === 'radio') return;
+      
+      if (!field.value.trim()) {
+        isValid = false;
+        field.style.borderBottom = '2.5px solid red';
+      } else {
+        field.style.borderBottom = '2.5px solid #1e3a8a';
+      }
+    });
+    
+    // Check radio (mood selection)
+    const moodSelected = form.querySelector('input[name="mood"]:checked');
+    if (!moodSelected) {
+      isValid = false;
+      alert('⚠️ Please select your mood!');
+    }
+    
+    if (!isValid) {
+      alert('⚠️ Please fill all required fields!');
+      return;
+    }
+    
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    
+    btn.textContent = 'Sending... 💌';
+    btn.disabled = true;
+    
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (res.ok) {
+        form.reset();
+        form.style.display = 'none';
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+      
+    } catch (error) {
+      btn.textContent = 'Try again 😅';
+      btn.disabled = false;
+      alert('⚠️ Failed to send. Check Formspree ID or internet.');
+    }
+    
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 3000);
+  });
+</script>
